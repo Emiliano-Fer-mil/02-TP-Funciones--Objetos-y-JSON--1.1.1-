@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "name": "apareo-con-actualizacion",
+  "version": "1.0.0",
+  "main": "",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "mocha --recursive",
+    "tdd": "nodemon --exec mocha --recursive"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
