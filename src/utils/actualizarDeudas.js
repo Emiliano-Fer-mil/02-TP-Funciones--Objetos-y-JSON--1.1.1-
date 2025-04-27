@@ -1,3 +1,4 @@
+//actualizarDeudas.js
 import mpl from './mensajesParaLoguear.js'
 
 /**
@@ -13,6 +14,31 @@ import mpl from './mensajesParaLoguear.js'
  * @returns {Object[]} las deudas actualizadas
  */
 function actualizar(deudas, pagos, logger) {
+    const arrayActualizado = []
+    for (const element of pagos) {
+        if (!deudas.some(deuda => deuda.dni === element.dni)) {
+            mpl.armarMsgPagoSinDeudaAsociada(element)
+            console.log(element)
+        } else if (!deudas.some(deuda => deuda.nombre === element.nombre)) {
+            const index = deudas.findIndex(deuda => deuda.dni === element.dni && deuda.nombre !== element.nombre)
+            mpl.armarMsgPagoConDatosErroneos(deudas[index], element)
+            console.log(deudas[index], element)
+        } else {
+            const deudaANetear = (deudas.findIndex(deuda => deuda.dni === element.dni))
+            deudas[deudaANetear].debe -= element.pago
+
+        }
+
+    }
+    for (const j of deudas) {
+        if (j.debe < 0) {
+            mpl.armarMsgPagoDeMas(j)
+        } else if (j.debe > 0) {
+            arrayActualizado.push(j)
+        }
+    }
+    console.log("array actualizado: ", arrayActualizado)
+    return arrayActualizado
 }
 
 export {
